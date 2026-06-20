@@ -155,6 +155,13 @@ def query(request: QueryRequest) -> QueryResponse:
     )
 
     docs = retriever.invoke(request.question)
+
+    if not docs:
+        return QueryResponse(
+            answer="No relevant documents found. Please ingest some documents first.",
+            sources=[],
+        )
+
     context = "\n\n".join(doc.page_content for doc in docs)
     filled_prompt = PROMPT_TEMPLATE.format(context=context, question=request.question)
 
@@ -162,7 +169,9 @@ def query(request: QueryRequest) -> QueryResponse:
         llm = ChatGroq(model="llama-3.1-8b-instant", temperature=0)
         answer = llm.invoke(filled_prompt).content
     except Exception as e:
-        raise HTTPException(status_code=503, detail=f"LLM unavailable: {e}")
+        import logging
+        logging.getLogger(__name__).error("LLM call failed: %s", e)
+        raise HTTPException(status_code=503, detail="The AI service is temporarily unavailable. Please try again.")
 
     sources = [
         SourceDocument(content=doc.page_content, metadata=doc.metadata)

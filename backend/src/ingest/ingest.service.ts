@@ -14,7 +14,8 @@ interface PythonIngestResponse {
 @Injectable()
 export class IngestService {
   private readonly logger = new Logger(IngestService.name);
-  private readonly pythonServiceUrl = 'http://localhost:8000';
+  private readonly pythonServiceUrl =
+    process.env.EMBEDDINGS_SERVICE_URL ?? 'http://localhost:8000';
 
   constructor(private readonly httpService: HttpService) {}
 

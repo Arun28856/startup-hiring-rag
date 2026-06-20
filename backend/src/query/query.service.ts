@@ -25,7 +25,8 @@ interface PythonQueryResponse {
 @Injectable()
 export class QueryService {
   private readonly logger = new Logger(QueryService.name);
-  private readonly pythonServiceUrl = 'http://localhost:8000';
+  private readonly pythonServiceUrl =
+    process.env.EMBEDDINGS_SERVICE_URL ?? 'http://localhost:8000';
 
   constructor(private readonly httpService: HttpService) {}
 

@@ -1,6 +1,9 @@
 import axios from 'axios'
 
-const client = axios.create({ baseURL: 'http://localhost:3001', timeout: 180000 })
+const client = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL ?? 'http://localhost:3001',
+  timeout: 180000,
+})
 
 export interface Source {
   content: string
