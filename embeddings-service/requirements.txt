@@ -2,6 +2,7 @@ fastapi
 uvicorn[standard]
 langchain-groq
 langchain-huggingface
+sentence-transformers
 langchain-chroma
 langchain
 langchain-community
