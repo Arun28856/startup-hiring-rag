@@ -1,5 +1,7 @@
 # Hiring Intel — Startup RAG Pipeline
 
+**Live demo:** https://frontend-production-9c5a6.up.railway.app
+
 A full-stack RAG (Retrieval-Augmented Generation) app for querying startup hiring and salary data in the Indian market. Ask questions in natural language; the system retrieves relevant context from your documents and generates answers with Groq's LLM API.
 
 ## Stack
